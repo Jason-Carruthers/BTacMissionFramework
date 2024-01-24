@@ -1,0 +1,19 @@
+#include "BtacMissionFncs\BtacFunctions.hpp"
+
+respawn = 3;
+respawndelay = 9999;
+RespawnDialog = 0;
+respawnOnStart = -1;
+enableDebugConsole = 1;
+zeusCompositionScriptLevel = 2;
+
+/* class CfgSounds
+{
+	class filename
+	{
+		name = "filename";
+		sound[] = {"\sound\filename.ogg", 1, 1};
+		titles[] = {1, ""};
+	};
+};
+*/
