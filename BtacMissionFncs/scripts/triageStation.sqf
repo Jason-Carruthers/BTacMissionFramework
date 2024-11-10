@@ -10,7 +10,7 @@ player setVariable ["triageNotDeployed", true];
 
 BTAC_fnc_triage_spawnObjects = { // spawn and create Tarp + first Aid Kits
 	[2, [], {hint "Triage Station deployed!";}, {hint "Cancelled"}, "Deploying..."] call ace_common_fnc_progressBar;
-	
+
 	_playerPos = getPos player;
 	_playerDir = getDir player;
 
@@ -31,12 +31,6 @@ BTAC_fnc_triage_spawnObjects = { // spawn and create Tarp + first Aid Kits
 	_oFAKpos = player modelToWorld [-0.9, 0.5, 0];
 	_openFAK setPos _oFAKpos;
 
-	if (triageHasConsumables == true) then {
-		_openFAK addItemCargo ["kat_IV_16", 5];
-		_openFAK addItemCargo ["kat_larynx", 5];
-	};
-
-
 	//closed FAK
 	_closedFAK = "Land_FirstAidKit_01_closed_F" createVehicle _playerPos;
 	_closedFAK enableSimulationGlobal false;
@@ -47,7 +41,7 @@ BTAC_fnc_triage_spawnObjects = { // spawn and create Tarp + first Aid Kits
 
 	// triage station is 'not not' deployed (it is deployed)
 	player setVariable ["triageNotDeployed", false];
-	
+
 	// create action on bag to remove station
 	_reStatement = {
 		params ["_target", "_player", "_args"];
@@ -68,3 +62,37 @@ _statement = {
 _action = ["Triage","Deploy Triage Station", "", _statement, {player getVariable "triageNotDeployed"}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions", "ACE_Equipment"], _action] call ace_interact_menu_fnc_addActionToObject;
 player setVariable ["triageAddedToPlayer", true];
+
+// TRIAGE CONSUMABLES
+// Should only be called once when first interaction happens 
+
+if ((player getVariable "consumableRequestsAdded") == true) exitWith {};
+// everything under here should only be executed if consumables are NOT already added 
+// ==================================================================================
+
+BTAC_fnc_triage_requestConsumables_kingLT = {
+	systemChat "KingLT added to backpack!";
+	player addItemToBackpack "kat_larynx";
+};
+
+BTAC_fnc_triage_requestConsumables_16gIV = {
+	systemChat "16g IV added to backpack!";
+	player addItemToBackpack "kat_IV_16";
+};
+
+_statement = {
+	call BTAC_fnc_triage_requestConsumables_kingLT;
+};
+
+_action2 = ["Triage","Request KingLT", "", _statement, {true}] call ace_interact_menu_fnc_createAction;
+[player, 1, ["ACE_SelfActions", "ACE_Equipment"], _action2] call ace_interact_menu_fnc_addActionToObject;
+
+_statement = {
+	call BTAC_fnc_triage_requestConsumables_16gIV;
+};
+
+_action3 = ["Triage","Request 16g IV", "", _statement, {true}] call ace_interact_menu_fnc_createAction;
+[player, 1, ["ACE_SelfActions", "ACE_Equipment"], _action3] call ace_interact_menu_fnc_addActionToObject;
+
+// flag to skip bottom section of code, prevent addition of multiple actions 
+player setVariable ["consumableRequestsAdded", true];

@@ -1,16 +1,15 @@
 // Order of Battle and Safe-Start Script 
 // using structured text to achieve the intended effect 
 
-//params ["_includeSituation", "_bluforFaction", "_opforFaction"];
-
 //exits if Orbat is disabled in init.sqf or briefing phase is done
 sleep 1;
-if (isNil "briefingPhase" || briefingPhase != true) exitWith {};
+if (isServer) exitWith {systemChat "Orbat is functioning, but disabled for singleplayer testing and non-dedicated server."};
+if (isNil "briefingPhase" || briefingPhase == false) exitWith {};
 
 [ACE_player, currentWeapon ACE_player, true] call ace_safemode_fnc_setWeaponSafety;
 
 [] spawn {
-	//params ["_includeSituation", "_bluforFaction", "_opforFaction"];
+	_counter = 0;
 	while {briefingPhase} do {
 		// recalc every 5 seconds to adjust for updates/changes 
 		private _playerName = name player;
@@ -95,10 +94,18 @@ Squad:
 			//_opforFaction //%12
 		];
 
+		_counter = _counter + 1;
 		sleep 5;
+		// systemChat format ["Counter = %1", _counter];
+		if (_counter >= 3) then {
+			// systemChat "New Platoon Roster Added!";
+			call BTAC_fnc_briefing;
+			_counter = 0;
+		};
 	};
-	waitUntil {!briefingPhase};
+
 	hint parseText "<t font='PuristaBold'><t size='1.2'><t color='#FFFF9400'>BRIEFING COMPLETE</t><br/></t>
 	<t font='PuristaMedium'>Mission Starting soon!</t></t></t>";
+
 	[ACE_player, currentWeapon ACE_player, false] call ace_safemode_fnc_setWeaponSafety;
 };

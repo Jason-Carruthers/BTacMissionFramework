@@ -23,9 +23,6 @@ class CfgFunctions
 			class triageStation {
 				file = "BtacMissionFncs\scripts\triageStation.sqf";
 			};
-			class toggleConsumables {
-				file = "BtacMissionFncs\scripts\toggleConsumables.sqf";
-			};
 			class waveSpawn {
 				file = "BtacMissionFncs\scripts\waveSpawn.sqf";
 			};

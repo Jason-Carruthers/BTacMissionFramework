@@ -1,6 +1,5 @@
 // Should contain:
 // Platoon roster 
-// Communication Breakdown 
 // General Information
 
 // ===================================================================================================
@@ -18,6 +17,11 @@
 */
 
 private["_strRank","_strRole","_strGrp","_strFinal","_oldGrp","_newGrp","_unitsArr"];
+
+if (player diarySubjectExists "fp_squads") then {
+	// systemChat "Diary Subject detected!";
+	player removeDiarySubject "fp_squads";
+};
 
 _strRank        = "";//will contain unit's rank
 _strRole        = "";//will contain unit's role
@@ -47,6 +51,7 @@ _unitsArr = call CBA_fnc_players;
 		};
 
 		_strRole = " - " + (roleDescription _x);
+		_strRole = trim "@";
 
         if(_newGrp != _oldGrp) then {
             _strGrp = "<br/>" + (groupID(group _x)) + "<br/>";
@@ -59,13 +64,6 @@ _unitsArr = call CBA_fnc_players;
 
 player createDiarySubject ["fp_squads","Platoon Roster"];
 player createDiaryRecord ["fp_squads",["Squads",_strFinal]];
-
-// ===================================================================================================
-// Communication Breakdown
-
-// private ["_radio1", "_radio2", "_radio3", "_radio4"];
-
-
 
 
 // ===================================================================================================
