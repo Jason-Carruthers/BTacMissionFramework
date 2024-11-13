@@ -51,7 +51,7 @@ _unitsArr = call CBA_fnc_players;
 		};
 
 		_strRole = " - " + (roleDescription _x);
-		_strRole = trim "@";
+		_strRole = _strRole splitString "@" select 0;
 
         if(_newGrp != _oldGrp) then {
             _strGrp = "<br/>" + (groupID(group _x)) + "<br/>";
