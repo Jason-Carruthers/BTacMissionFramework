@@ -51,4 +51,3 @@ null = execVM "BtacMissionFncs\scripts\orbatLocal.sqf";
 // add Zeus modules
 ["BTac Mission Functions", "Player Wave Spawn", {call BTAC_fnc_waveSpawn;}] call zen_custom_modules_fnc_register;
 ["BTac Mission Functions", "End Briefing Phase", {missionNamespace setVariable ["briefingPhase", false, true];}] call zen_custom_modules_fnc_register;
-// ["BTac Mission Functions", "Create Resupply Crate", {}] call zen_custom_modules_fnc_register;

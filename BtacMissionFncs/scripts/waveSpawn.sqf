@@ -1,10 +1,10 @@
 // Creates a wave spawn, respawning all dead players who are in specatator
-// setPlayerRespawnTime 1;
+params ["_spawnLocation"];
+"respawn_west" setMarkerPos _spawnLocation;
+
 [] spawn {
-	[1] remoteExec ["setPlayerRespawnTime"];
-
+	sleep 1;
+	[0] remoteExec ["setPlayerRespawnTime"];
 	sleep 3;
-
-	// setPlayerRespawnTime 9999;
 	[9999] remoteExec ["setPlayerRespawnTime"];
 };

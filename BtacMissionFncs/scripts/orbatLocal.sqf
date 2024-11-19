@@ -15,10 +15,10 @@ if (isNil "briefingPhase" || briefingPhase == false) exitWith {};
 		private _playerName = name player;
 		private _playerGroup = group player;
 		private _groupName = groupId _playerGroup;
-		private _squadLeader = name leader group player; 
+		private _squadLeader = name leader group player;
 		private _role = (roleDescription player) splitString "@" select 0; 
-		private _opName = briefingName; 
-		private _terrain = worldName; 
+		private _opName = briefingName;
+		private _terrain = worldName;
 		private _currentTime = systemTime apply {if (_x < 10) then {"0" + str _x} else {str _x}};
 		private _hours = _currentTime select 3; _minutes = _currentTime select 4;
 		private _timeSys = _hours + ":" + _minutes;
@@ -63,7 +63,7 @@ Squad:
 <t align='right'><t color='#FFFF9400'>Ch: %9 </t></t><br/>
 </t><br/><br/>
 
-<t font='PuristaLight'><t size='0.7'>B|Tac Mission Framework V0.2 - 23/01/24</t></t>
+<t font='PuristaLight'><t size='0.7'>B|Tac Mission Framework V0.3 - 19/11/24</t></t>
 ";
 
 // 		private _situationBrief = "<br/><br/>

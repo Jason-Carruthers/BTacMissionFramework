@@ -16,14 +16,14 @@
 		this setVariable ["displayName","Noob #1"];
 */
 
-private["_strRank","_strRole","_strGrp","_strFinal","_oldGrp","_newGrp","_unitsArr"];
+private["_strRole","_strGrp","_strFinal","_oldGrp","_newGrp","_unitsArr"];
 
 if (player diarySubjectExists "fp_squads") then {
 	// systemChat "Diary Subject detected!";
 	player removeDiarySubject "fp_squads";
 };
 
-_strRank        = "";//will contain unit's rank
+// _strRank        = "";//will contain unit's rank
 _strRole        = "";//will contain unit's role
 _strGrp         = "";//will contain unit's group name
 _strFinal       = "";//will contain final string to be displayed
@@ -39,16 +39,16 @@ _unitsArr = call CBA_fnc_players;
         _newGrp = group _x;
         _strGrp = "";
 
-		switch(rankID _x) do {
-			case 0:{ _strRank = "Pvt. "; };
-			case 1:{ _strRank = "Cpl. "; };
-			case 2:{ _strRank = "Sgt. "; };
-			case 3:{ _strRank = "Lt.  "; };
-			case 4:{ _strRank = "Cpt. "; };
-			case 5:{ _strRank = "Maj. "; };
-			case 6:{ _strRank = "Col. "; };
-			default{ _strRank = "Pvt. "; };
-		};
+		// switch(rankID _x) do {
+		// 	case 0:{ _strRank = "Pvt. "; };
+		// 	case 1:{ _strRank = "Cpl. "; };
+		// 	case 2:{ _strRank = "Sgt. "; };
+		// 	case 3:{ _strRank = "Lt.  "; };
+		// 	case 4:{ _strRank = "Cpt. "; };
+		// 	case 5:{ _strRank = "Maj. "; };
+		// 	case 6:{ _strRank = "Col. "; };
+		// 	default{ _strRank = "Pvt. "; };
+		// };
 
 		_strRole = " - " + (roleDescription _x);
 		_strRole = _strRole splitString "@" select 0;
@@ -57,7 +57,8 @@ _unitsArr = call CBA_fnc_players;
             _strGrp = "<br/>" + (groupID(group _x)) + "<br/>";
         };
 
-        _strFinal =  _strFinal + "<font color='#FFFF9400'>"+_strGrp+"</font>" + _strRank + format ["%1%2",if (leader group _x == _x) then {"- "}else{"  - "}, name _x] + _strRole + "<br/>";
+		// removed _strRank
+        _strFinal =  _strFinal + "<font color='#FFFF9400'>"+_strGrp+"</font>" + format ["%1%2",if (leader group _x == _x) then {" "}else{"   "}, name _x] + _strRole + "<br/>";
         _oldGrp = group _x;
     };
 } forEach _unitsArr;
